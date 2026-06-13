@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Archive Signal Deck - Tistory AutoPilot</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="masthead">
+        <div class="identity">
+          <p class="eyebrow">newspaper data</p>
+          <h1>Archive Signal Deck</h1>
+          <p class="lead">자동 발행 후 남은 기사 데이터를 3D 신호선과 검색 가능한 기사 카드로 추적합니다.</p>
+        </div>
+        <div class="digital-stage" aria-hidden="true">
+          <span class="stage-plane plane-back"></span>
+          <span class="stage-plane plane-floor"></span>
+          <span class="data-tower tower-a"></span>
+          <span class="data-tower tower-b"></span>
+          <span class="data-tower tower-c"></span>
+          <span class="data-tower tower-d"></span>
+          <span class="wire-frame frame-a"></span>
+          <span class="wire-frame frame-b"></span>
+          <span class="signal-line line-a"></span>
+          <span class="signal-line line-b"></span>
+          <span class="signal-node node-a"></span>
+          <span class="signal-node node-b"></span>
+          <span class="signal-node node-c"></span>
+        </div>
+        <div class="status-panel" aria-live="polite">
+          <span class="status-label">업데이트</span>
+          <strong id="generatedAt">대기 중</strong>
+          <span id="archiveWindow">전날 07:00부터 당일 06:00까지</span>
+        </div>
+      </header>
+
+      <section class="overview-grid" aria-label="보관 기사 요약">
+        <article class="metric">
+          <span>전체 기사</span>
+          <strong id="totalCount">0</strong>
+        </article>
+        <article class="metric">
+          <span>기록 날짜</span>
+          <strong id="dateCount">0</strong>
+        </article>
+        <article class="metric">
+          <span>선택 날짜</span>
+          <strong id="selectedCount">0</strong>
+        </article>
+        <article class="metric accent">
+          <span>주요 출처</span>
+          <strong id="topSource">-</strong>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <section class="main-stage">
+          <section class="visual-panel" aria-label="데이터 시각화">
+            <div>
+              <h2 id="visualTitle">3D Signal Line</h2>
+              <p id="visualCaption">날짜별 기사량과 출처 분포를 3차원 실선 그래프로 표현합니다.</p>
+            </div>
+            <canvas id="archiveCanvas" width="960" height="300" aria-hidden="true"></canvas>
+          </section>
+
+          <section class="controls" aria-label="기사 검색과 정렬">
+            <div class="search-wrap">
+              <label for="searchInput">검색</label>
+              <input id="searchInput" type="search" placeholder="제목, 출처, 본문에서 찾기">
+            </div>
+            <div class="select-wrap">
+              <label for="sortSelect">정렬</label>
+              <select id="sortSelect">
+                <option value="newest">최신순</option>
+                <option value="source">출처순</option>
+                <option value="title">제목순</option>
+                <option value="longest">본문 긴 순</option>
+              </select>
+            </div>
+            <button class="primary-button" id="refreshButton" type="button">새로고침</button>
+          </section>
+
+          <section class="article-grid" id="articleGrid" aria-live="polite"></section>
+        </section>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="articleModal" aria-hidden="true">
+      <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header class="modal-head">
+          <div>
+            <span class="article-source" id="modalSource"></span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalMeta"></p>
+          </div>
+          <button class="icon-button" id="closeModal" type="button" aria-label="닫기">&times;</button>
+        </header>
+        <div class="modal-body" id="modalContent"></div>
+        <footer class="modal-foot">
+          <a id="modalLink" href="#" target="_blank" rel="noreferrer">원문 열기</a>
+        </footer>
+      </article>
+    </div>
+
+    <noscript>이 페이지는 보관 기사 JSON을 읽기 위해 JavaScript가 필요합니다.</noscript>
+    <script src="app.js" defer></script>
+  </body>
+</html>
