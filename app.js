@@ -122,7 +122,7 @@ function updateOverview() {
   elements.selectedCount.textContent = formatNumber(selected.length);
   elements.topSource.textContent = counts[0] ? counts[0][0] : "-";
   elements.generatedAt.textContent = formatDateTime(state.index?.generated_at);
-  elements.archiveWindow.textContent = state.index?.archive_window?.rule || "전날 07:00부터 당일 06:00까지";
+  elements.archiveWindow.textContent = state.index?.archive_window?.rule || "전날 07:00부터 당일 07:00까지";
 }
 
 function renderDates() {
