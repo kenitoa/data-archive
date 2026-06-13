@@ -3,10 +3,9 @@
   "generated_at": "2026-06-13T20:18:24.329701+09:00",
   "archive_window": {
     "start_hour": 7,
-    "end_hour": 6,
+    "end_hour": 7,
     "timezone": "Asia/Seoul",
-    "rule": "A date file covers previous-day 07:00 <= archived_at < same-day 06:00.",
-    "excluded_hour": "06:00 <= archived_at < 07:00"
+    "rule": "A date file covers previous-day 07:00 <= archived_at < same-day 07:00."
   },
   "total_count": 0,
   "dates": []
