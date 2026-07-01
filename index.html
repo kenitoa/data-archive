@@ -56,6 +56,24 @@
       </section>
 
       <section class="workspace">
+        <aside class="archive-sidebar" aria-label="아카이브 탐색">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>날짜</h2>
+              <button class="ghost-button" id="loadAllButton" type="button">전체</button>
+            </div>
+            <div class="timeline" id="dateTimeline" aria-live="polite"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>출처</h2>
+              <button class="ghost-button" id="clearSourceButton" type="button">해제</button>
+            </div>
+            <div class="source-list" id="sourceList" aria-live="polite"></div>
+          </section>
+        </aside>
+
         <section class="main-stage">
           <section class="visual-panel" aria-label="데이터 시각화">
             <div>
