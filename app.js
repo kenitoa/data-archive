@@ -138,6 +138,13 @@ function updateOverview() {
   elements.topSource.textContent = counts[0] ? counts[0][0] : "-";
   elements.generatedAt.textContent = formatDateTime(state.index?.generated_at);
   elements.archiveWindow.textContent = state.index?.archive_window?.rule || "전날 07:00부터 당일 07:00까지";
+  if (elements.loadAllButton) {
+    const allowLoadAll = state.index?.allow_load_all !== false;
+    elements.loadAllButton.disabled = !allowLoadAll;
+    elements.loadAllButton.title = allowLoadAll
+      ? ""
+      : `전체 날짜 JSON이 ${formatNumber(state.index?.total_payload_bytes || 0)} bytes라 한 번에 불러오지 않습니다.`;
+  }
 }
 
 function renderDates() {
@@ -675,6 +682,14 @@ async function selectDate(date) {
 async function loadAllDates() {
   const dates = state.index?.dates || [];
   if (!dates.length) return;
+  if (state.index?.allow_load_all === false) {
+    elements.articleGrid.innerHTML = "";
+    const empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.textContent = `전체 날짜 JSON이 ${formatNumber(state.index?.total_payload_bytes || 0)} bytes라 한 번에 불러오지 않습니다. 날짜를 하나씩 선택하세요.`;
+    elements.articleGrid.appendChild(empty);
+    return;
+  }
   state.loadedMode = "all";
   state.selectedDate = "";
   state.selectedSource = "";
@@ -695,7 +710,7 @@ function openArticle(article) {
     .filter(Boolean);
 
   if (!paragraphs.length) {
-    paragraphs.push("본문 데이터가 없습니다.");
+    paragraphs.push("공개 JSON은 요약 모드로 생성되어 본문 전체를 포함하지 않습니다. 원문 링크에서 전체 내용을 확인하세요.");
   }
 
   paragraphs.forEach((paragraph) => {
