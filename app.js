@@ -69,6 +69,21 @@ async function fetchJson(path) {
   return response.json();
 }
 
+function dateFiles(item) {
+  const files = Array.isArray(item?.files) ? item.files : [];
+  const normalized = files
+    .map((entry) => (typeof entry === "string" ? entry : entry?.file))
+    .filter(Boolean);
+  if (normalized.length) return normalized;
+  return item?.file ? [item.file] : [];
+}
+
+async function fetchDateArticles(item) {
+  const files = dateFiles(item);
+  const payloads = await Promise.all(files.map((file) => fetchJson(file)));
+  return payloads.flatMap((payload) => (Array.isArray(payload.articles) ? payload.articles : []));
+}
+
 function getWindowLabel(item) {
   const windowInfo = item?.window || {};
   if (!windowInfo.start || !windowInfo.end) return "07:00 기준";
@@ -653,8 +668,7 @@ async function selectDate(date) {
   state.loadedMode = "latest";
   state.selectedSource = "";
   elements.articleGrid.innerHTML = '<div class="empty-state">날짜 파일을 불러오는 중입니다.</div>';
-  const payload = await fetchJson(item.file);
-  state.articles = Array.isArray(payload.articles) ? payload.articles : [];
+  state.articles = await fetchDateArticles(item);
   renderAll();
 }
 
@@ -665,8 +679,8 @@ async function loadAllDates() {
   state.selectedDate = "";
   state.selectedSource = "";
   elements.articleGrid.innerHTML = '<div class="empty-state">전체 날짜 데이터를 불러오는 중입니다.</div>';
-  const payloads = await Promise.all(dates.map((item) => fetchJson(item.file)));
-  state.articles = payloads.flatMap((payload) => (Array.isArray(payload.articles) ? payload.articles : []));
+  const articleGroups = await Promise.all(dates.map((item) => fetchDateArticles(item)));
+  state.articles = articleGroups.flat();
   renderAll();
 }
 
