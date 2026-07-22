@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "generated_at": "2026-07-22T06:50:01.418743+09:00",
+  "generated_at": "2026-07-23T06:50:01.887004+09:00",
   "public_mode": "summary",
   "source_url_mode": "hidden",
-  "total_payload_bytes": 431823,
+  "total_payload_bytes": 517226,
   "max_total_load_bytes": 50000000,
   "allow_load_all": true,
   "privacy": {
@@ -17,29 +17,29 @@
     "timezone": "Asia/Seoul",
     "rule": "A date file covers previous-day 07:00 <= archived_at < same-day 07:00."
   },
-  "total_count": 562,
+  "total_count": 662,
   "dates": [
     {
-      "date": "2026-07-22",
-      "label": "2026.07.22",
-      "file": "data/2026.07.22.json",
+      "date": "2026-07-23",
+      "label": "2026.07.23",
+      "file": "data/2026.07.23.json",
       "files": [
         {
-          "file": "data/2026.07.22.json",
-          "count": 562,
+          "file": "data/2026.07.23.json",
+          "count": 662,
           "part": 1,
-          "bytes": 431823
+          "bytes": 517226
         }
       ],
       "chunked": false,
       "window": {
-        "start": "2026-07-21T07:00:00+09:00",
-        "end": "2026-07-22T07:00:00+09:00",
+        "start": "2026-07-22T07:00:00+09:00",
+        "end": "2026-07-23T07:00:00+09:00",
         "rule": "start <= archived_at < end"
       },
-      "count": 562,
-      "latest_archived_at": "2026-07-21T21:48:08.416474",
-      "oldest_archived_at": "2026-07-21T21:36:09.397584"
+      "count": 662,
+      "latest_archived_at": "2026-07-22T21:48:08.986335",
+      "oldest_archived_at": "2026-07-22T21:36:09.347493"
     }
   ]
 }
